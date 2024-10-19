@@ -1,0 +1,27 @@
+# Ignore the virtual environment directory
+venv/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore environment variable files
+.env
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore logs
+*.log
+
+# Ignore coverage files
+.coverage
+htmlcov/
+
+# Ignore any other files that are not necessary for the Docker image
+*.git
+*.gitignore
+Dockerfile
+README.md

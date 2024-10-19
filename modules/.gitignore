@@ -1,0 +1,29 @@
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Pytest cache
+.cache/
+
+# Local configuration files
+*.sqlite3
+*.db
+
+# IDE/editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Log files
+*.log

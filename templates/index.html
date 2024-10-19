@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cannabis Strain Recommendation</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cannabis Strain Recommendation</h1>
+        <h2>Discover Strains Tailored to Your Preferences!</h2>
+        <div class="sliders">
+            <div class="slider-label">
+                <label>Anxious:</label>
+                <input type="range" id="anxious" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Aroused:</label>
+                <input type="range" id="aroused" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Creative:</label>
+                <input type="range" id="creative" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Dizzy:</label>
+                <input type="range" id="dizzy" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Dry Eyes:</label>
+                <input type="range" id="dry_eyes" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Dry Mouth:</label>
+                <input type="range" id="dry_mouth" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Energetic:</label>
+                <input type="range" id="energetic" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Euphoric:</label>
+                <input type="range" id="euphoric" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Focused:</label>
+                <input type="range" id="focused" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Giggly:</label>
+                <input type="range" id="giggly" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Happy:</label>
+                <input type="range" id="happy" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Hungry:</label>
+                <input type="range" id="hungry" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Paranoid:</label>
+                <input type="range" id="paranoid" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Relaxed:</label>
+                <input type="range" id="relaxed" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Sleepy:</label>
+                <input type="range" id="sleepy" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Talkative:</label>
+                <input type="range" id="talkative" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Tingly:</label>
+                <input type="range" id="tingly" min="0" max="100" value="50">
+            </div>
+            <div class="slider-label">
+                <label>Uplifted:</label>
+                <input type="range" id="uplifted" min="0" max="100" value="50">
+            </div>
+        </div>
+
+        <button id="recommend-btn">Get Recommendations</button>
+
+        <div id="recommendations"></div>
+    </div>
+
+    <script>
+        document.getElementById('recommend-btn').addEventListener('click', function () {
+            const userPreferences = {
+                anxious: parseInt(document.getElementById('anxious').value),
+                aroused: parseInt(document.getElementById('aroused').value),
+                creative: parseInt(document.getElementById('creative').value),
+                dizzy: parseInt(document.getElementById('dizzy').value),
+                dry_eyes: parseInt(document.getElementById('dry_eyes').value),
+                dry_mouth: parseInt(document.getElementById('dry_mouth').value),
+                energetic: parseInt(document.getElementById('energetic').value),
+                euphoric: parseInt(document.getElementById('euphoric').value),
+                focused: parseInt(document.getElementById('focused').value),
+                giggly: parseInt(document.getElementById('giggly').value),
+                happy: parseInt(document.getElementById('happy').value),
+                hungry: parseInt(document.getElementById('hungry').value),
+                paranoid: parseInt(document.getElementById('paranoid').value),
+                relaxed: parseInt(document.getElementById('relaxed').value),
+                sleepy: parseInt(document.getElementById('sleepy').value),
+                talkative: parseInt(document.getElementById('talkative').value),
+                tingly: parseInt(document.getElementById('tingly').value),
+                uplifted: parseInt(document.getElementById('uplifted').value)
+            };
+
+            fetch('/recommend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userPreferences)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const recommendationsDiv = document.getElementById('recommendations');
+                recommendationsDiv.innerHTML = '';  // Clear previous recommendations
+                data.forEach(strain => {
+                    recommendationsDiv.innerHTML += `
+                        <div class="strain">
+                            <h3>${strain.name}</h3>
+                            <p>Type: ${strain.type}</p>
+                            <p>${strain.description}</p>
+                            <p>THC Level: ${strain.thc_level}%</p>
+                        </div>
+                    `;
+                });
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
